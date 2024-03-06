@@ -5,6 +5,7 @@ import { toast } from 'react-toastify';
 import { Button, FormInput } from '../../components';
 import './CreateBookForm.css';
 import AutoCompleteBooks from './AutoCompleteBooks/AutoCompleteBooks';
+import { ErrorMessages, Messages } from '../../constants';
 
 interface BookFormFields {
 	title: string;
@@ -27,15 +28,15 @@ function CreateBookForm() {
 		try {
 			await createBook(data);
 			reset();
-			toast.success('Book created');
+			toast.success(Messages.BOOK_CREATED);
 		} catch (error) {
 			if (error instanceof Response && error.status === 409) {
 				setError('title', {
-					message: 'Title already exists',
+					message: ErrorMessages.TITLE_ALREADY_EXISTS,
 				});
 				return;
 			}
-			setError('root', { message: 'Something went wrong' });
+			setError('root', { message: ErrorMessages.SOMETHING_WENT_WRONG });
 		}
 	};
 
@@ -47,7 +48,7 @@ function CreateBookForm() {
 					register={register}
 					error={errors.title?.message}
 					name={'title'}
-					validationOptions={{ required: 'Title is required' }}
+					validationOptions={{ required: ErrorMessages.TITLE_IS_REQUIRED }}
 					type='text'
 					placeholder='Title'
 					value={titleValue}
@@ -60,7 +61,7 @@ function CreateBookForm() {
 					register={register}
 					error={errors.authorName?.message}
 					name={'authorName'}
-					validationOptions={{ required: 'Author is required' }}
+					validationOptions={{ required: ErrorMessages.AUTHOR_IS_REQUIRED }}
 					type='text'
 					placeholder='Author'
 				/>
@@ -69,7 +70,7 @@ function CreateBookForm() {
 					register={register}
 					error={errors.publicationDate?.message}
 					name={'publicationDate'}
-					validationOptions={{ required: 'Publication Date is required' }}
+					validationOptions={{ required: ErrorMessages.PUBLICATION_DATE_IS_REQUIRED }}
 					type='date'
 					placeholder='Publication Date'
 				/>

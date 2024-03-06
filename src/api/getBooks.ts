@@ -1,3 +1,4 @@
+import { ApiConstants } from '../constants';
 import { PaginatedResponse } from './interfaces/PaginatedResponse';
 
 export interface GetBookResponse {
@@ -13,7 +14,7 @@ export const getBooks = async (
 	pageNumber = 1,
 ): Promise<PaginatedResponse<GetBookResponse>> => {
 	const response = await fetch(
-		`http://localhost:3001/book?searchTerm=${search}&pageSize=${pageSize}&pageNumber=${pageNumber}`,
+		`${ApiConstants.BASE_URL}/${ApiConstants.BOOKS}?searchTerm=${search}&pageSize=${pageSize}&pageNumber=${pageNumber}`,
 	);
 	if (!response.ok) {
 		throw response;
