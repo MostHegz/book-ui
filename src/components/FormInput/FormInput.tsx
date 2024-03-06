@@ -10,6 +10,7 @@ interface FormInputProps {
 	type: React.HTMLInputTypeAttribute;
 	placeholder: string;
 	value?: string;
+	onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 const FormInput: React.FC<FormInputProps> = ({
@@ -20,6 +21,7 @@ const FormInput: React.FC<FormInputProps> = ({
 	type,
 	placeholder,
 	value,
+	onChange,
 }) => {
 	return (
 		<>
@@ -30,6 +32,7 @@ const FormInput: React.FC<FormInputProps> = ({
 				placeholder={placeholder}
 				value={value}
 				className='main'
+				onChange={onChange}
 			/>
 			{error && <div className='danger'>{error}</div>}
 		</>

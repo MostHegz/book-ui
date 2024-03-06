@@ -1,9 +1,11 @@
-import React from 'react';
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { createBook } from '../../api/createBook';
 import { toast } from 'react-toastify';
 import { Button, FormInput } from '../../components';
 import './CreateBookForm.css';
+import AutoCompleteBooks from './AutoCompleteBooks/AutoCompleteBooks';
+
 interface BookFormFields {
 	title: string;
 	authorName: string;
@@ -16,8 +18,10 @@ function CreateBookForm() {
 		handleSubmit,
 		setError,
 		reset,
-		formState: { errors, isSubmitting, isValid },
+		formState: { errors, isSubmitting },
 	} = useForm<BookFormFields>();
+
+	const [titleValue, setTitleValue] = useState('');
 
 	const onSubmit = async (data: BookFormFields) => {
 		try {
@@ -46,7 +50,11 @@ function CreateBookForm() {
 					validationOptions={{ required: 'Title is required' }}
 					type='text'
 					placeholder='Title'
+					value={titleValue}
+					onChange={(e) => setTitleValue(e.target.value)}
 				/>
+
+				{titleValue && <AutoCompleteBooks searchTerm={titleValue} />}
 
 				<FormInput
 					register={register}
@@ -67,7 +75,7 @@ function CreateBookForm() {
 				/>
 
 				<Button
-					isDisabled={!isValid || isSubmitting}
+					isDisabled={isSubmitting}
 					type='submit'
 					message={isSubmitting ? 'Creating....' : 'Create Book'}
 				/>

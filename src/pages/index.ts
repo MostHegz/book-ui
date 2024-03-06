@@ -1,3 +1,3 @@
-import CreateBookForm from './CreateBook';
+import CreateBookForm from './CreateBook/CreateBookForm';
 
 export { CreateBookForm };
