@@ -2,11 +2,12 @@ import { QueryCache, QueryClient, QueryClientProvider } from '@tanstack/react-qu
 import { CreateBookForm } from './pages';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.min.css';
+import { ErrorMessages } from './constants';
 
 const queryClient = new QueryClient({
 	queryCache: new QueryCache({
 		onError: (error) => {
-			toast.error('Something went wrong');
+			toast.error(ErrorMessages.SOMETHING_WENT_WRONG);
 		},
 	}),
 	defaultOptions: {
